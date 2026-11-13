@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#155bd7"><meta name="description" content="Alif AI — Personal AI assistant">
+<link rel="manifest" href="/manifest.webmanifest">
+<title>Alif AI</title>
+<style>
+:root{--blue:#155bd7;--blue2:#2678f4;--ink:#14243a;--muted:#6c7b91;--bg:#f2f6fc;--line:#e3eaf4;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,"Noto Sans Bengali",sans-serif}
+header{background:linear-gradient(130deg,#1047aa,#287df6);color:white;padding:17px max(16px,calc((100% - 900px)/2));display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:11px}.logo{width:46px;height:46px;border-radius:15px;background:#ffffff25;border:1px solid #ffffff60;display:grid;place-items:center;font-weight:900;font-size:27px}
+h1{font-size:23px;line-height:1;margin:0}.sub{font-size:11px;color:#deebff;margin-top:5px}.head-actions{display:flex;gap:7px}.head-actions button{background:#ffffff20;color:white;border:1px solid #ffffff45}
+main{max-width:900px;margin:18px auto;padding:0 13px}.toolbar{display:flex;gap:8px;overflow:auto;margin:0 0 12px}.chip{white-space:nowrap;border:1px solid #dce7f7;background:#eaf2ff;color:#2058aa;border-radius:99px;padding:8px 12px;font-size:12px;font-weight:650}
+.layout{display:grid;grid-template-columns:1fr;gap:12px}.chatbox{background:var(--white);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 8px 28px #153d7610}
+.chat{height:min(58vh,590px);min-height:360px;overflow:auto;padding:16px}
+.msg{max-width:90%;padding:11px 13px;border-radius:16px;margin:9px 0;white-space:pre-wrap;line-height:1.55;overflow-wrap:anywhere;font-size:15px}
+.bot{background:#eef4ff;border:1px solid #dce8ff;border-top-left-radius:5px}.user{background:var(--blue);color:#fff;margin-left:auto;border-top-right-radius:5px}
+.who{font-size:10px;font-weight:800;opacity:.65;letter-spacing:.4px;margin-bottom:4px}
+.typing{color:var(--muted);font-size:13px;padding:0 16px 8px}
+.composer{display:flex;gap:8px;padding:11px;border-top:1px solid var(--line);background:#fff}
+input{min-width:0;flex:1;border:1px solid #d7e1ef;border-radius:13px;padding:13px;font:inherit;outline:none}
+input:focus{border-color:var(--blue);box-shadow:0 0 0 3px #155bd71a}
+button{border:0;border-radius:12px;padding:11px 14px;background:var(--blue);color:#fff;font:inherit;font-weight:700;cursor:pointer}
+button:disabled{opacity:.55;cursor:wait}.secondary{background:#edf3fd;color:#24579c;border:1px solid #dfe8f5}
+.quick,.features{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}.quick button{font-size:12px;background:white;color:#315d98;border:1px solid var(--line);padding:8px 10px}
+.features button{flex:1;min-width:100px;background:white;color:#24579c;border:1px solid var(--line);font-size:13px}.features .emoji{font-size:18px;display:block;margin-bottom:3px}
+.status{margin:11px 3px 0;color:var(--muted);font-size:12px;line-height:1.5}.foot{text-align:center;color:#8794a8;font-size:11px;padding:17px}
+@media(min-width:760px){main{padding:0 20px}.chat{height:570px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand"><div class="logo">A</div><div><h1>Alif AI</h1><div class="sub">YOUR PERSONAL AI ASSISTANT</div></div></div>
+ <div class="head-actions"><button class="secondary" id="newChat">নতুন চ্যাট</button></div>
+</header>
+<main>
+ <div class="toolbar"><div class="chip">🇧🇩 বাংলা</div><div class="chip">🇬🇧 English</div><div class="chip">🎙️ Voice</div><div class="chip">📚 Study helper</div><div class="chip">Free-tier AI</div></div>
+ <section class="chatbox">
+  <div class="chat" id="chat" aria-live="polite">
+   <div class="msg bot"><div class="who">ALIF AI</div>আসসালামু আলাইকুম! আমি Alif AI। 😊
+
+বাংলা বা ইংরেজিতে প্রশ্ন করো। পড়াশোনা, ব্যাখ্যা, অনুবাদ, MCQ—অনেক কাজে সাহায্য করতে পারি।</div>
+  </div>
+  <div class="typing" id="typing" hidden>Alif AI উত্তর তৈরি করছে…</div>
+  <form class="composer" id="form"><input id="prompt" placeholder="এখানে প্রশ্ন লিখো..." autocomplete="off" required><button id="send" type="submit">পাঠাও</button></form>
+ </section>
+ <div class="features">
+  <button id="voice"><span class="emoji">🎙️</span>ভয়েসে বলো</button>
+  <button id="speak" class="secondary"><span class="emoji">🔊</span>উত্তর শোনো</button>
+  <button id="image" class="secondary"><span class="emoji">🖼️</span>ছবি তৈরির তথ্য</button>
+ </div>
+ <div class="quick">
+  <button data-q="আমাকে ইংরেজি শেখাও এবং ৫টি বাক্য অনুশীলন করাও">ইংরেজি শেখাও</button>
+  <button data-q="বাংলাদেশ সম্পর্কে ১০টি গুরুত্বপূর্ণ সাধারণ জ্ঞান প্রশ্ন ও উত্তর দাও">সাধারণ জ্ঞান</button>
+  <button data-q="ব্যবস্থাপনা বিষয়ে ৫টি MCQ উত্তরসহ তৈরি করো">MCQ তৈরি</button>
+ </div>
+ <p class="status" id="status">চ্যাট চালু করতে অ্যাপটি প্রকাশের পর সার্ভার সেটিংসে Gemini API key যোগ করতে হবে। API key কখনো এই পেজে লিখবে না।</p>
+</main>
+<div class="foot">Alif AI · Made for learning ❤️</div>
+<script>
+const chat=document.getElementById('chat'),form=document.getElementById('form'),input=document.getElementById('prompt'),sendBtn=document.getElementById('send'),typing=document.getElementById('typing'),statusEl=document.getElementById('status');
+let history=[],lastReply='আসসালামু আলাইকুম! কী জানতে চাও?';
+function add(text,who){const d=document.createElement('div');d.className='msg '+who;const w=document.createElement('div');w.className='who';w.textContent=who==='user'?'তুমি':'ALIF AI';const t=document.createElement('div');t.textContent=text;d.append(w,t);chat.append(d);chat.scrollTop=chat.scrollHeight}
+async function send(q){q=(q||input.value).trim();if(!q)return;add(q,'user');input.value='';history.push({role:'user',parts:[{text:q}]});typing.hidden=false;sendBtn.disabled=true;
+ try{const r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:history.slice(-16)})});const data=await r.json();if(!r.ok)throw new Error(data.error||'AI সার্ভারে সমস্যা হয়েছে');const reply=data.reply||'দুঃখিত, উত্তর পাওয়া যায়নি।';lastReply=reply;add(reply,'bot');history.push({role:'model',parts:[{text:reply}]});statusEl.textContent='AI সংযুক্ত আছে · ফ্রি-টিয়ারের সীমা প্রযোজ্য';}
+ catch(e){const msg='সংযোগ করা যায়নি: '+e.message+'\\nসাইটের মালিককে Gemini API key ও Cloudflare সেটিংস পরীক্ষা করতে বলো।';lastReply=msg;add(msg,'bot');history.pop();}
+ finally{typing.hidden=true;sendBtn.disabled=false;input.focus()}}
+form.addEventListener('submit',e=>{e.preventDefault();send()});
+document.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>send(b.dataset.q));
+document.getElementById('newChat').onclick=()=>{history=[];chat.innerHTML='';add('নতুন চ্যাট শুরু হলো! কী জানতে চাও?','bot')};
+document.getElementById('speak').onclick=()=>{if(!('speechSynthesis'in window)){alert('এই ব্রাউজারে Text-to-Speech নেই।');return}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(lastReply);u.lang=/[\u0980-\u09FF]/.test(lastReply)?'bn-BD':'en-US';speechSynthesis.speak(u)};
+document.getElementById('voice').onclick=()=>{const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){alert('Chrome-এ Voice input ব্যবহার করে দেখো।');return}const r=new SR();r.lang='bn-BD';r.onresult=e=>send(e.results[0][0].transcript);r.onerror=()=>alert('ভয়েস শোনা যায়নি, আবার চেষ্টা করো।');r.start()};
+document.getElementById('image').onclick=()=>alert('AI ছবি তৈরি করার মডেলগুলোর জন্য বর্তমানে Gemini API-তে ফ্রি image-generation tier নেই। তাই পেইড ব্যবহার শুরু না করে এই ফিচারটি আপাতত বন্ধ রাখা হয়েছে।');
+if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+</script>
+</body></html>

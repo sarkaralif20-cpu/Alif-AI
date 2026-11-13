@@ -1,0 +1,9 @@
+{
+  "name": "Alif AI",
+  "short_name": "Alif AI",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f2f6fc",
+  "theme_color": "#155bd7",
+  "description": "Your personal AI assistant"
+}
