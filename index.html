@@ -71,7 +71,7 @@ document.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>send(b.dataset.q)
 document.getElementById('newChat').onclick=()=>{history=[];chat.innerHTML='';add('নতুন চ্যাট শুরু হলো! কী জানতে চাও?','bot')};
 document.getElementById('speak').onclick=()=>{if(!('speechSynthesis'in window)){alert('এই ব্রাউজারে Text-to-Speech নেই।');return}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(lastReply);u.lang=/[\u0980-\u09FF]/.test(lastReply)?'bn-BD':'en-US';speechSynthesis.speak(u)};
 document.getElementById('voice').onclick=()=>{const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){alert('Chrome-এ Voice input ব্যবহার করে দেখো।');return}const r=new SR();r.lang='bn-BD';r.onresult=e=>send(e.results[0][0].transcript);r.onerror=()=>alert('ভয়েস শোনা যায়নি, আবার চেষ্টা করো।');r.start()};
-document.getElementById('image').onclick=()=>alert('AI ছবি তৈরি করার মডেলগুলোর জন্য বর্তমানে Gemini API-তে ফ্রি image-generation tier নেই। তাই পেইড ব্যবহার শুরু না করে এই ফিচারটি আপাতত বন্ধ রাখা হয়েছে।');
+document.getElementById('image').onclick=()=>alert('SobiBanabo');
 if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
 </script>
 </body></html>
